@@ -31,25 +31,28 @@
 
 <script type="text/javascript">
 $(function() {
-	$('#jmpress').jmpress();
-	$("#form").submit(function(event) {
+	$( "#jmpress" ).jmpress();
+	$( "#form" ).submit(function( event ) {
+		var count, newStep,
+			i = 0;
+
 		event.preventDefault();
 
-		$("#container").find(".step").each(function(idx, step) {
-			$("#jmpress").jmpress("deinit", step);
+		$( "#container" ).find( ".step" ).each(function( idx, step ) {
+			$( "#jmpress" ).jmpress( "deinit", step );
 		}).remove();
 
-		var count = parseInt($("#number-field").val(), 10);
+		count = parseInt( $( "#number-field" ).val(), 10 );
 
-		for(var i = 0; i < count; i++) {
-			var newStep = $("<div class='step'>");
-			newStep.attr("data-y", i*600);
-			newStep.html("<p>This is step "+(i+1)+"</p>");
-			$("#container").append(newStep);
-			$("#jmpress").jmpress("init", newStep);
+		for ( ; i < count; i++ ) {
+			newStep = $( "<div class='step'>" );
+			newStep.attr( "data-y", i * 600 );
+			newStep.html( "<p>This is step " + ( i + 1 ) + "</p>" );
+			$( "#container" ).append( newStep );
+			$( "#jmpress" ).jmpress( "init", newStep );
 		}
 
-		$("#jmpress").jmpress("next");
+		$( "#jmpress" ).jmpress( "next" );
 
 	});
 });

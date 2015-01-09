@@ -14,13 +14,13 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="../../dist/jmpress.js"></script>
 	<script type="text/javascript">
-		$.jmpress("template", "auto", {
-			children: function(idx) {
+		$.jmpress( "template", "auto", {
+			children: function( idx ) {
 				return {
-					y: 400
-					,x: -300 + idx * 300
-					,template: "auto"
-					,scale: 0.3
+					y: 400,
+					x: -300 + idx * 300,
+					template: "auto",
+					scale: 0.3
 				}
 			}
 		});
@@ -92,9 +92,11 @@
 
 <script type="text/javascript">
 $(function() {
-	$('#jmpress').jmpress({
-		stepSelector: "section"
-		,hash: { use: false }
+	$( "#jmpress" ).jmpress({
+		stepSelector: "section",
+		hash: {
+			use: false
+		}
 	});
 });
 </script>

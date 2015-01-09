@@ -135,14 +135,14 @@ $(function() {
 
 	/* FIRST */
 
-	$.jmpress("template", "nav1", {
-		children: function(idx) {
+	$.jmpress( "template", "nav1", {
+		children: function( idx ) {
 			var distanceX = 240;
 			var distanceY = 170;
 			var config = {
 				scale: 0.2,
 				y: -1,
-				x: ((idx%5) - 2) * (1/2),
+				x: ( ( idx % 5 ) - 2 ) * ( 1 / 2 ),
 				rotateY: 360,
 				secondary: {
 					"": "self",
@@ -152,7 +152,7 @@ $(function() {
 					scale: 1
 				}
 			};
-			if(idx % 2 != 0) {
+			if ( idx % 2 != 0 ) {
 				config.y = -config.y;
 			}
 			config.x = config.x * distanceX;
@@ -160,10 +160,12 @@ $(function() {
 			return config;
 		}
 	});
-	$('#nav1').jmpress({
+	$( "#nav1" ).jmpress({
 		stepSelector: "section",
 		containerClass: "jmpress",
-		hash: { use: false },
+		hash: {
+			use: false
+		},
 		fullscreen: false,
 		duration: {
 			defaultValue: 3000
@@ -172,14 +174,14 @@ $(function() {
 
 	/* SECOND */
 
-	$.jmpress("template", "nav2", {
-		children: function(idx) {
+	$.jmpress( "template", "nav2", {
+		children: function( idx ) {
 			var distanceX = 240;
 			var distanceY = 170;
 			var config = {
 				scale: 0.2,
 				y: -1,
-				x: ((idx%5) - 2) * (1/2),
+				x: ( ( idx % 5 ) - 2 ) * ( 1 / 2 ),
 				rotateX: 360,
 				secondary: {
 					"": "self",
@@ -189,7 +191,7 @@ $(function() {
 					scale: 1
 				}
 			};
-			if(idx % 2 != 0) {
+			if ( idx % 2 != 0 ) {
 				config.y = -config.y;
 			}
 			config.x = config.x * distanceX;
@@ -197,10 +199,12 @@ $(function() {
 			return config;
 		}
 	});
-	$('#nav2').jmpress({
+	$( "#nav2" ).jmpress({
 		stepSelector: "section",
 		containerClass: "jmpress",
-		hash: { use: false },
+		hash: {
+			use: false
+		},
 		fullscreen: false,
 		duration: {
 			defaultValue: 3923

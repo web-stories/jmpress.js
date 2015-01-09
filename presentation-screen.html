@@ -15,26 +15,28 @@
 	<script type="text/javascript">
 		var notesUrl = false;
 		var PREFIX = "jmpress-presentation-";
-		window.addEventListener("message", function(event) {
-			if(typeof event.data !== "string" || event.data.indexOf(PREFIX) !== 0) {
+		window.addEventListener( "message", function( event ) {
+			if ( typeof event.data !== "string" || event.data.indexOf( PREFIX ) !== 0 ) {
 				return;
 			}
-			var json = JSON.parse(event.data.slice(PREFIX.length));
-			switch(json.type) {
+			var json = JSON.parse( event.data.slice( PREFIX.length ) );
+			switch( json.type ) {
 			case "afterInit":
-				event.source.postMessage(PREFIX + JSON.stringify({type:"listen"}), "*");
+				event.source.postMessage( PREFIX + JSON.stringify({ type:"listen" }), "*" );
 				break;
 			case "select":
-				window.opener.postMessage(PREFIX + JSON.stringify(json), "*");
-				if(notesUrl && /[a-z0-9\-]+/i.test(json.targetId))
-					$("#notesframe").attr("src", notesUrl+"#"+json.targetId);
+				window.opener.postMessage( PREFIX + JSON.stringify( json ), "*" );
+				if ( notesUrl && /[a-z0-9\-]+/i.test( json.targetId ) ) {
+					$( "#notesframe" ).attr( "src", notesUrl + "#" + json.targetId );
+				}
 				break;
 			case "url":
-				event.source.postMessage(PREFIX + JSON.stringify({type:"ok"}), "*");
-				$("#frame").attr("src", json.url);
+				event.source.postMessage( PREFIX + JSON.stringify({ type:"ok" }), "*" );
+				$( "#frame" ).attr( "src", json.url );
 				notesUrl = json.notesUrl || notesUrl;
-				if(notesUrl)
-					$("#notesframe").attr("src", notesUrl);
+				if ( notesUrl ) {
+					$( "#notesframe" ).attr( "src", notesUrl );
+				}
 				break;
 			}
 		});
