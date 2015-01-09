@@ -70,7 +70,7 @@
 			var near = ( backwards ? false : findNextInChildren( element, selector, backwards ) ) ||
 				findNextInSiblings( element, selector, backwards ) ||
 				findNextInParents( element, selector, backwards );
-			if( near ) {
+			if ( near ) {
 				array.push( near );
 			}
 		});
