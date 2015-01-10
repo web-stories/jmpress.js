@@ -4,13 +4,13 @@
 
 	"use strict";
 
-	QUnit.testStart = function( test ) {
+	QUnit.testStart(function() {
 		window.location.hash = "#";
-	};
+	});
 
-	QUnit.done = function() {
+	QUnit.done(function() {
 		$( "body" ).css( "overflow", "auto" );
-	};
+	});
 
 	module( "core#init", {
 		setup: function() {
@@ -146,38 +146,66 @@
 		}
 	});
 
-	test( "should fire beforeChange event", 2, function() {
+	test( "should fire beforeChange event", function() {
+		expect( 3 );
+		var elementId, eventDataReason,
+			count = 0;
+
 		$( this.fixture ).jmpress();
 		$( this.fixture ).jmpress( "beforeChange", function( element, eventData ) {
-			equal( $( element ).attr( "id" ), "download" );
-			equal( eventData.reason, "next" );
+			count += 1;
+			elementId = $( element ).attr( "id" );
+			eventDataReason = eventData.reason;
 		});
 		$( this.fixture ).jmpress( "next" );
+
+		strictEqual( count, 1, "event fired" );
+		strictEqual( elementId, "download", "got the correct element id" );
+		strictEqual( eventDataReason, "next", "got the correct event reason" );
 	});
 
-	test( "should fire beforeInit and afterInit events", 2, function() {
+	test( "should fire beforeInit event", function() {
+		expect( 1 );
+		var count = 0;
 		$( this.fixture ).jmpress({
 			"beforeInit": function( element, eventData ) {
-				ok( true );
-			},
-			"afterInit": function( element, eventData ) {
-				ok( true );
+				count += 1;
 			}
 		});
+		strictEqual( count, 1, "event fired" );
 	});
 
-	test( "should fire selectNext and selectPrev events", function() {
-		expect( 2 );
+	test( "should fire afterInit event", function() {
+		expect( 1 );
+		var count = 0;
+		$( this.fixture ).jmpress({
+			"afterInit": function( element, eventData ) {
+				count += 1;
+			}
+		});
+		strictEqual( count, 1, "event fired" );
+	});
+
+	test( "should fire selectNext event", function() {
+		expect( 1 );
+		var count = 0;
 		$( this.fixture ).jmpress();
 		$( this.fixture ).jmpress( "selectNext", function( element, eventData ) {
-			ok( true );
+			count += 1;
 		});
 		$( this.fixture ).jmpress( "next" );
+		strictEqual( count, 1, "event fired" );
+	});
 
+	test( "should fire selectPrev event", function() {
+		expect( 1 );
+		var count = 0;
+		$( this.fixture ).jmpress();
 		$( this.fixture ).jmpress( "selectPrev", function( element, eventData ) {
-			ok( true );
+			count += 1;
 		});
 		$( this.fixture ).jmpress( "prev" );
+		strictEqual( count, 1, "event fired" );
 	});
 
 }( jQuery ));

@@ -4,9 +4,9 @@
 
 	"use strict";
 
-	QUnit.testStart = function( test ) {
+	QUnit.testStart(function() {
 		window.location.hash = "#";
-	};
+	});
 
 	module( "ajax", {
 		setup: function() {
