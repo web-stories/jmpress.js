@@ -176,7 +176,9 @@ module.exports = function( grunt ) {
 
 	require( "matchdep" ).filterDev( "grunt-*" ).forEach( grunt.loadNpmTasks );
 
-	grunt.registerTask( "ci", [ "validate", "qunit" ] );
+	grunt.registerTask( "files", [ "concat", "uglify", "cssmin" ]);
 	grunt.registerTask( "validate", [ "jshint", "jscs" ]);
-	grunt.registerTask( "default", [ "clean", "validate", "concat", "uglify", "cssmin" ]);
+
+	grunt.registerTask( "ci", [ "validate", "files", "qunit" ] );
+	grunt.registerTask( "default", [ "clean", "validate", "files" ]);
 };
