@@ -35,7 +35,7 @@
     "dist/jmpress.js"
   ],
   "scripts": {
-    "test": "grunt qunit"
+    "test": "grunt ci --verbose --debug --stack"
   },
   "dependencies": {},
   "devDependencies": {
