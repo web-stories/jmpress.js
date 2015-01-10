@@ -129,11 +129,14 @@
 		equal( active.attr( "id" ), "about" );
 	});
 
-	test( "should set data on canvas", 1, function() {
+	test( "should set style on canvas", function() {
+		expect( 1 );
+		var canvas;
 		$( this.fixture ).jmpress( "canvas", {
 			"transitionDuration": "5s"
 		});
-		ok( $( this.fixture ).attr( "style" ).indexOf( "transition-duration" ) !== -1 );
+		canvas = $( this.fixture ).find( ".step" ).parent();
+		ok( canvas.css( "transition-duration" ), "5s" );
 	});
 
 	// TODO: fire method
