@@ -31,6 +31,14 @@ module.exports = function( grunt ) {
 		qunit: {
 			all: [ "test/*.html" ]
 		},
+		connect: {
+			test: {
+				options: {
+					open: "http://localhost:8000/test",
+					keepalive: true
+				}
+			}
+		},
 		concat: {
 			dist: {
 				options: {
