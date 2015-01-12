@@ -2,6 +2,9 @@
 
 A jQuery plugin to build a website on the infinite canvas.
 
+[![Build Status: Linux](https://secure.travis-ci.org/web-stories/jmpress.js.png?branch=master)](http://travis-ci.org/web-stories/jmpress.js)
+[![Build status](https://ci.appveyor.com/api/projects/status/bo6bix3p9f51kxh9?svg=true)](https://ci.appveyor.com/project/FagnerMartinsBrack/jmpress-js)
+
 Started as a jQuery port of [impress.js](https://github.com/bartaz/impress.js)
 and utilizes the power of CSS3 transforms and transitions in modern browsers.
 
