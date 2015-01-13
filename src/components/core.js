@@ -413,9 +413,9 @@
 			if ( current.idleTimeout ) {
 				clearTimeout( current.idleTimeout );
 			}
-			current.idleTimeout = setTimeout(function() {
+			current.idleTimeout = setTimeout($.proxy(function() {
 				callCallback.call( this, "idle", delegated, callbackData );
-			}, Math.max( 1, settings.transitionDuration - 100 ) );
+			}, this ), Math.max( 1, settings.transitionDuration - 100 ) );
 
 			return delegated;
 		}

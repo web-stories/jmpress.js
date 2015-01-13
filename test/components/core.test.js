@@ -1,5 +1,5 @@
 /* global QUnit, module, test, asyncTest, expect, start, stop, ok, equal, notEqual, deepEqual,
- * notDeepEqual, strictEqual, notStrictEqual, raises */
+ * notDeepEqual, strictEqual, notStrictEqual, raises, sinon */
 (function( $ ) {
 
 	"use strict";
@@ -209,6 +209,35 @@
 		});
 		$( this.fixture ).jmpress( "prev" );
 		strictEqual( count, 1, "event fired" );
+	});
+
+	module( "async callbacks", {
+		setup: function() {
+			this.fixture = "#qunit-fixture #jmpress";
+			this.clock = sinon.useFakeTimers();
+		},
+		teardown: function() {
+			this.clock.restore();
+		}
+	});
+
+	test( "should fire idle event", function() {
+		expect( 2 );
+		var jmpress,
+			count = 0;
+
+		$( this.fixture ).jmpress();
+		$( this.fixture ).jmpress( "idle", function( element, eventData ) {
+			jmpress = eventData.jmpress;
+			count += 1;
+		});
+
+		// settings.transitionDuration - 100
+		// 1500 - 100
+		this.clock.tick( 1400 );
+
+		strictEqual( count, 1, "event fired" );
+		ok( !!jmpress, "should have a valid value on eventData.jmpress" );
 	});
 
 }( jQuery ));
