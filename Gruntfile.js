@@ -34,8 +34,7 @@ module.exports = function( grunt ) {
 		connect: {
 			test: {
 				options: {
-					open: "http://localhost:8000/test",
-					keepalive: true
+					open: "http://localhost:8000/test"
 				}
 			}
 		},
@@ -179,6 +178,7 @@ module.exports = function( grunt ) {
 	grunt.registerTask( "files", [ "concat", "uglify", "cssmin" ]);
 	grunt.registerTask( "validate", [ "jshint", "jscs" ]);
 
+	grunt.registerTask( "dev", [ "connect:test", "watch" ] );
 	grunt.registerTask( "ci", [ "validate", "files", "qunit" ] );
 	grunt.registerTask( "default", [ "clean", "validate", "files" ]);
 };
