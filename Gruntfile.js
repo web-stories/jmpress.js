@@ -114,58 +114,6 @@ module.exports = function( grunt ) {
 				files: [
 					{
 						"dist/basic-animations.css": [ "src/css/animations/basic/*" ]
-						//"dist/advanced-animations.css": [ "src/css/animations/advanced/*" ]
-					}
-				]
-			}
-		},
-		uglify: {
-			options: {
-				stripBanners: true,
-				banner: banner
-			},
-			dist: {
-				files: [
-					{
-						"dist/jmpress.min.js": [ "dist/jmpress.js" ],
-						"dist/jmpress.impress.min.js": [ "dist/jmpress.impress.js" ],
-						"dist/jmpress.all.min.js": [ "dist/jmpress.all.js" ]
-					}
-				]
-			},
-			plugins: {
-				options: {
-					stripBanners: true,
-					banner: pluginBanner
-				},
-				files: [
-					{
-						"dist/jmpress.allplugins.min.js": [
-							"dist/jmpress.allplugins.js"
-						],
-						"dist/plugins/jmpress.secondary.min.js": [
-							"dist/plugins/jmpress.secondary.js"
-						],
-						"dist/plugins/jmpress.toggle.min.js": [
-							"dist/plugins/jmpress.toggle.js"
-						],
-						"dist/plugins/jmpress.duration.min.js": [
-							"dist/plugins/jmpress.duration.js"
-						],
-						"dist/plugins/jmpress.presentation-mode.min.js": [
-							"dist/plugins/jmpress.presentation-mode.js"
-						]
-					}
-				]
-			}
-		},
-		cssmin: {
-			all: {
-				files: [
-					{
-						"dist/basic-animations.min.css": [ "dist/basic-animations.css" ],
-						"dist/demo.css": [ "dist/basic-animations.css", "src/css/demo/*.css" ]
-						//"dist/advanced-animations.min.css": [ "dist/advanced-animations.css" ]
 					}
 				]
 			}
@@ -173,9 +121,11 @@ module.exports = function( grunt ) {
 		clean: [ "dist/**/*" ]
 	});
 
-	require( "matchdep" ).filterDev( "grunt-*" ).forEach( grunt.loadNpmTasks );
+	require( "matchdep" )
+		.filterDev( "grunt-*" )
+		.forEach( grunt.loadNpmTasks );
 
-	grunt.registerTask( "files", [ "concat", "uglify", "cssmin" ]);
+	grunt.registerTask( "files", [ "concat" ]);
 	grunt.registerTask( "validate", [ "jshint", "jscs" ]);
 
 	grunt.registerTask( "dev", [ "connect:test", "watch" ] );
