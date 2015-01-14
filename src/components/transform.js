@@ -95,26 +95,33 @@
 	jmpressDefaults.originX = "50%";
 	jmpressDefaults.originY = "50%";
 	$.jmpress( "initStep", function( step, eventData ) {
-		var data = eventData.data,
+		var stepDataAttributes = eventData.data,
+			rootDataAttributes = eventData.rootData,
 			stepData = eventData.stepData,
 			pf = parseFloat;
 
 		$.extend( stepData, {
-			x: pf( data.x ) || 0,
-			y: pf( data.y ) || 0,
-			z: pf( data.z ) || 0,
-			r: pf( data.r ) || 0,
-			phi: pf( data.phi ) || 0,
-			rotate: pf( data.rotate ) || 0,
-			rotateX: pf( data.rotateX ) || 0,
-			rotateY: pf( data.rotateY ) || 0,
-			rotateZ: pf( data.rotateZ ) || 0,
+			x: pf( stepDataAttributes.x ) || 0,
+			y: pf( stepDataAttributes.y ) || 0,
+			z: pf( stepDataAttributes.z ) || 0,
+			r: pf( stepDataAttributes.r ) || 0,
+			phi: pf( stepDataAttributes.phi ) || 0,
+			rotate: pf( stepDataAttributes.rotate ) || 0,
+			rotateX: pf( stepDataAttributes.rotateX ) || 0,
+			rotateY: pf( stepDataAttributes.rotateY ) || 0,
+			rotateZ: pf( stepDataAttributes.rotateZ ) || 0,
 			revertRotate: false,
-			scale: pf( data.scale) || 1,
-			scaleX: pf( data.scaleX ) || false,
-			scaleY: pf( data.scaleY ) || false,
-			scaleZ: pf( data.scaleZ ) || 1
+			scale: pf( stepDataAttributes.scale) || 1,
+			scaleX: pf( stepDataAttributes.scaleX ) || false,
+			scaleY: pf( stepDataAttributes.scaleY ) || false,
+			scaleZ: pf( stepDataAttributes.scaleZ ) || 1
 		});
+
+		if ( stepDataAttributes.transitionDuration ) {
+			stepData.transitionDuration = +stepDataAttributes.transitionDuration;
+		} else if ( rootDataAttributes.transitionDuration ) {
+			stepData.transitionDuration = +rootDataAttributes.transitionDuration;
+		}
 	});
 	$.jmpress( "beforeInit", function( nil, eventData ) {
 		$.jmpress( "css", eventData.area, {
@@ -153,15 +160,13 @@
 					sd.x || ( sd.r * Math.sin( sd.phi * Math.PI / 180 ) ),
 					sd.y || ( -sd.r * Math.cos( sd.phi * Math.PI / 180 ) ),
 					sd.z
-				],
-				[
+				], [
 					"rotate",
 					sd.rotateX,
 					sd.rotateY,
 					sd.rotateZ || sd.rotate,
 					true
-				],
-				[
+				], [
 					"scale",
 					sd.scaleX || sd.scale,
 					sd.scaleY || sd.scale,
@@ -258,15 +263,21 @@
 		});
 	});
 	$.jmpress( "applyTarget", function( active, eventData ) {
-		var animation, extracted, lastScale,
-			target = eventData.target,
-			props, step = eventData.stepData,
+		var extracted = [],
+			lastScale = -1,
 			settings = eventData.settings,
+			animation = $.extend( {}, settings.animation ),
+			target = eventData.target,
+			step = eventData.stepData,
 			zoomin = target.perspectiveScale * 1.3 < eventData.current.perspectiveScale,
-			zoomout = target.perspectiveScale > eventData.current.perspectiveScale * 1.3;
+			zoomout = target.perspectiveScale > eventData.current.perspectiveScale * 1.3,
+			props = $.extend( {}, animation, {
+				// To keep the perspective look similar for different scales, we need to 'scale'
+				// the perspective, too
+				perspective: Math.round( target.perspectiveScale * 1000 ) + "px"
+			});
 
 		// Extract first scale from transform
-		lastScale = -1;
 		$.each( target.transform, function( idx, item ) {
 			if ( item.length <= 1 ) {
 				return;
@@ -289,7 +300,6 @@
 			eventData.current.oldLastScale = lastScale;
 		}
 
-		extracted = [];
 		if ( lastScale !== -1 ) {
 			while ( lastScale >= 0 ) {
 				if ( target.transform[ lastScale ][ 0 ] === "scale" ) {
@@ -300,33 +310,24 @@
 			}
 		}
 
-		animation = settings.animation;
 		if ( settings.reasonableAnimation[ eventData.reason ] ) {
 			animation = $.extend( {}, animation, settings.reasonableAnimation[ eventData.reason ] );
 		}
 
-		props = {
-			// to keep the perspective look similar for different scales
-			// we need to 'scale' the perspective, too
-			perspective: Math.round( target.perspectiveScale * 1000 ) + "px"
-		};
-		props = $.extend( {}, animation, props );
+		// Apply the transition-duration from data attributes
+		if ( step.transitionDuration ) {
+			animation.transitionDuration = step.transitionDuration + "ms";
+		}
+
 		if ( !zoomin ) {
 			props.transitionDelay = "0s";
 		}
-		if ( !eventData.beforeActive ) {
-			props.transitionDuration = "0s";
-			props.transitionDelay = "0s";
-		}
+
 		$.jmpress( "css", eventData.area, props );
 		engine.transform( eventData.area, extracted, eventData.settings );
 
 		props = $.extend( {}, animation );
 		if ( !zoomout ) {
-			props.transitionDelay = "0s";
-		}
-		if ( !eventData.beforeActive ) {
-			props.transitionDuration = "0s";
 			props.transitionDelay = "0s";
 		}
 

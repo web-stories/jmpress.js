@@ -1,5 +1,5 @@
 /* global QUnit, module, test, asyncTest, expect, start, stop, ok, equal, notEqual, deepEqual,
- * notDeepEqual, strictEqual, notStrictEqual, raises, sinon */
+ * notDeepEqual, strictEqual, notStrictEqual, raises, sinon, console */
 (function( $ ) {
 
 	"use strict";
@@ -143,7 +143,7 @@
 	// TODO: container method
 	// TODO: reapply method
 
-	module( "callbacks", {
+	module( "core#callbacks", {
 		setup: function() {
 			this.fixture = "#qunit-fixture #jmpress";
 		}
@@ -211,7 +211,7 @@
 		strictEqual( count, 1, "event fired" );
 	});
 
-	module( "async callbacks", {
+	module( "core#async callbacks", {
 		setup: function() {
 			this.fixture = "#qunit-fixture #jmpress";
 			this.clock = sinon.useFakeTimers();
@@ -238,6 +238,45 @@
 
 		strictEqual( count, 1, "event fired" );
 		ok( !!jmpress, "should have a valid value on eventData.jmpress" );
+	});
+
+	module( "core#duration", {
+		setup: function() {
+			this.fixture = "#qunit-fixture #jmpress";
+		}
+	});
+
+	test( "Transition duration for all steps via data attributes", function() {
+		var transitionDuration;
+		expect( 1 );
+		$( this.fixture ).attr( "data-transition-duration", "100" );
+		$( this.fixture ).jmpress();
+		transitionDuration = $( this.fixture )
+			.find( ".step" )
+			.parent()
+			.css( "transition-duration" );
+		console.log( "transition-duration: " + transitionDuration );
+		ok(
+			transitionDuration.indexOf( "0.1" ) !== -1,
+			"should set correct transition for the first step"
+		);
+	});
+
+	test( "Transition duration for an individual step", function() {
+		var transitionDuration;
+		expect( 1 );
+		$( this.fixture ).find( ".step:eq(1)" ).attr( "data-transition-duration", "100" );
+		$( this.fixture ).jmpress();
+		$( this.fixture ).jmpress( "next" );
+		transitionDuration = $( this.fixture )
+			.find( ".step" )
+				.parent()
+				.css( "transition-duration" );
+		console.log( "transition-duration: " + transitionDuration );
+		ok(
+			transitionDuration.indexOf( "0.1" ) !== -1,
+			"should set transition for the second step"
+		);
 	});
 
 }( jQuery ));

@@ -91,8 +91,7 @@
 			transitionDelay: "500ms",
 			transitionTimingFunction: "ease-in-out",
 			transformStyle: "preserve-3d"
-		},
-		transitionDuration: 1500
+		}
 	};
 
 	callbacks = {
@@ -177,16 +176,17 @@
 		 * @param idx number of step
 		 */
 		function doStepInit( element, idx ) {
-			var callbackData,
-				data = dataset( element ),
+			var data = dataset( element ),
+				rootData = dataset( jmpress ),
 				step = {
 					oldStyle: $( element ).attr( "style" ) || ""
+				},
+				callbackData = {
+					data: data,
+					rootData: rootData,
+					stepData: step
 				};
 
-			callbackData = {
-				data: data,
-				stepData: step
-			};
 			callCallback.call( this, "beforeInitStep", $( element ), callbackData );
 			step.delegate = data.delegate;
 			callCallback.call( this, "initStep", $( element ), callbackData );
@@ -402,8 +402,7 @@
 
 			callCallback.call( this, "applyTarget", delegated, $.extend({
 				canvas: canvas,
-				area: area,
-				beforeActive: activeDelegated
+				area: area
 			}, callbackData ) );
 
 			active = el;
@@ -635,6 +634,7 @@
 			position: "absolute",
 			transitionDuration: "0s"
 		};
+
 		props = $.extend( {}, settings.animation, props );
 		css( area, props );
 		css( canvas, props );
