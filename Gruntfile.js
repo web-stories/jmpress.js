@@ -124,6 +124,7 @@ module.exports = function( grunt ) {
 				files: {
 					"dist/jmpress.webstories.js": [
 						"src/components/core.js",
+						"src/components/near.js",
 						"src/components/transform.js",
 						"src/components/active.js",
 						"src/components/circular.js",
