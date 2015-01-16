@@ -2,7 +2,13 @@
  * active.js
  * Set the active classes on steps
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -32,6 +38,7 @@
 			});
 		}
 	});
+
 	$jmpress( "setActive", function( step, eventData ) {
 		var settings = eventData.settings,
 			activeClassSetting = settings[ activeClass ],
@@ -46,4 +53,4 @@
 		}
 	});
 
-}( jQuery, document, window ));
+}));

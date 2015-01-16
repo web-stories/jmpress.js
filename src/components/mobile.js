@@ -2,7 +2,13 @@
  * mobile.js
  * Adds support for swipe on touch supported browsers
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -49,5 +55,4 @@
 			jmpress = eventData.jmpress;
 		$( settings.fullscreen ? document : jmpress ).unbind( current.mobileNamespace );
 	});
-
-}( jQuery, document, window ));
+}));

@@ -2,7 +2,13 @@
  * ways.js
  * Control the flow of the steps
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core", "./near" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -64,5 +70,4 @@
 	$jmpress( "selectPrev", function( step, eventData ) {
 		return selectPrevOrNext.call( this, step, eventData, "prev", true );
 	});
-
-}( jQuery, document, window ));
+}));

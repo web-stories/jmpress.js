@@ -2,7 +2,13 @@
  * viewport.js
  * Scale to fit a given viewport
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -248,5 +254,4 @@
 			eventData.current.userTranslateY = 0;
 		}
 	});
-
-}( jQuery, document, window ));
+}));

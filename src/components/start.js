@@ -2,7 +2,13 @@
  * start.js
  * Set the first step to start on
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -10,5 +16,4 @@
 	$.jmpress( "selectInitialStep", function( nil, eventData ) {
 		return eventData.settings.start;
 	});
-
-}( jQuery, document, window ));
+}));

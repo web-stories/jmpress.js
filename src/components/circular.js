@@ -2,8 +2,13 @@
  * circular.js
  * Repeat from start after end
  */
-(function( $, document, window, undefined ) {
-
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core", "./near" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 	"use strict";
 
 	var $jmpress = $.jmpress;
@@ -48,4 +53,4 @@
 	$jmpress( "selectNext", function( step, eventData ) {
 		return prevOrNext( this, step, eventData );
 	});
-}( jQuery, document, window ));
+}));

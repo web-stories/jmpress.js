@@ -2,7 +2,13 @@
  * animation.js
  * Apply custom animations to steps
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -276,4 +282,4 @@
 		}
 	});
 
-}( jQuery, document, window ));
+}));

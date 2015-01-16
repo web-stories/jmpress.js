@@ -2,7 +2,13 @@
  * jqevents.js
  * Fires jQuery events
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -19,5 +25,4 @@
 			$( step ).triggerHandler( "leaveStep" );
 		}
 	});
-
-}( jQuery, document, window ));
+}));

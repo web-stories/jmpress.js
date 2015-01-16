@@ -2,7 +2,13 @@
  * jmpress.secondary plugin
  * Apply a secondary animation when step is selected.
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -70,4 +76,4 @@
 				.each( grandchildrenFunc );
 		}
 	});
-}( jQuery, document, window ));
+}));

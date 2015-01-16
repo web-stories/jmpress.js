@@ -3,7 +3,13 @@
  * Display a window for the presenter with notes and a control and view of the
  * presentation
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -147,4 +153,4 @@
 			jmpress.jmpress( "current" ).presentationPopupTimeout = setTimeout( trySend, 100 );
 		}
 	});
-}( jQuery, document, window ));
+}));

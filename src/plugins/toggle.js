@@ -2,7 +2,13 @@
  * jmpress.toggle plugin
  * For binding a key to toggle de/initialization of jmpress.js.
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -21,4 +27,4 @@
 			$( jmpress ).jmpress( config );
 		}
 	});
-}( jQuery, document, window ));
+}));

@@ -2,7 +2,13 @@
  * ajax.js
  * Load steps via ajax
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core", "./near" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -78,4 +84,4 @@
 		});
 	});
 
-}( jQuery, document, window ));
+}));

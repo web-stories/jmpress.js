@@ -13,6 +13,7 @@
   "smarttabs": true,
   "validthis": true,
   "globals": {
-    "jQuery": true
+    "jQuery": true,
+    "define": true
   }
 }

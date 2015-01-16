@@ -2,7 +2,13 @@
  * transform.js
  * The engine that powers the transforms or falls back to other methods
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -336,5 +342,4 @@
 		$.jmpress( "css", eventData.canvas, props );
 		engine.transform( eventData.canvas, target.transform, eventData.settings );
 	});
-
-}( jQuery, document, window ));
+}));

@@ -2,7 +2,13 @@
  * near.js
  * Find steps near each other
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -76,4 +82,4 @@
 		});
 		return $( array );
 	};
-}( jQuery, document, window ));
+}));

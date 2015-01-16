@@ -2,7 +2,13 @@
  * hash.js
  * Detect and set the URL hash
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -105,5 +111,4 @@
 			}, settings.transitionDuration + 200 );
 		}
 	});
-
-}( jQuery, document, window ));
+}));

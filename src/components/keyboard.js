@@ -2,7 +2,13 @@
  * keyboard.js
  * Keyboard event mapping and default keyboard actions
  */
-(function( $, document, window, undefined ) {
+(function( factory ) {
+	if ( typeof define === "function" && define.amd ) {
+		define( [ "jquery", "./core" ], factory );
+	} else {
+		factory( jQuery );
+	}
+}(function( $ ) {
 
 	"use strict";
 
@@ -170,5 +176,4 @@
 	$jmpress( "afterDeinit", function( nil, eventData ) {
 		$( document ).unbind( eventData.current.keyboardNamespace );
 	});
-
-}( jQuery, document, window ));
+}));
