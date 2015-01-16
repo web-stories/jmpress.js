@@ -116,23 +116,6 @@ module.exports = function( grunt ) {
 						"dist/basic-animations.css": [ "src/css/animations/basic/*" ]
 					}
 				]
-			},
-			webstories: {
-				options: {
-					banner: banner
-				},
-				files: {
-					"dist/jmpress.webstories.js": [
-						"src/components/core.js",
-						"src/components/near.js",
-						"src/components/transform.js",
-						"src/components/active.js",
-						"src/components/circular.js",
-						"src/components/start.js",
-						"src/components/hash.js",
-						"src/components/mobile.js"
-					]
-				}
 			}
 		},
 		clean: [ "dist/**/*" ]
