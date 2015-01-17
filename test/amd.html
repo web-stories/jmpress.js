@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>jmpress.js test suite</title>
+  <link rel="stylesheet" href="libs/qunit/qunit.css" media="screen">
+  <script src="libs/qunit/qunit.js"></script>
+
+  <script>
+    var require = {
+      baseUrl: "/src/components",
+      paths: {
+        jquery: "/test/libs/jquery/jquery"
+      }
+    };
+  </script>
+  <script src="libs/requirejs/require.js"></script>
+
+  <script src="amd/viewport.test.js"></script>
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture">
+    <div id="jmpress">
+      <div id="about" class="step" data-x="-900" data-y="-1500">
+        About Step
+      </div>
+      <div id="download" class="step" data-x="0" data-y="-1500" data-rotate="-90">
+        Download Step
+      </div>
+      <div id="docs" class="step" data-x="1000" data-y="-1500" data-rotate="-180">
+        Docs Step
+      </div>
+    </div>
+  </div>
+</body>
+</html>

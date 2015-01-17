@@ -4,7 +4,7 @@
  */
 (function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
-		define( [ "jquery", "./core" ], factory );
+		define( [ "jquery", "./core", "./transform" ], factory );
 	} else {
 		factory( jQuery );
 	}
@@ -16,8 +16,7 @@
 		return "" + Math.round( Math.random() * 100000, 0 );
 	}
 
-	var keys,
-		browser = (function() {
+	var browser = (function() {
 			var ua = navigator.userAgent.toLowerCase(),
 				match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
 					/(webkit)[ \/]([\w.]+)/.exec( ua ) ||
@@ -38,14 +37,8 @@
 		zoomBindMove: true,
 		zoomBindWheel: true
 	};
-	keys = defaults.keyboard.keys;
-	keys[ browser === "mozilla" ? 107 : 187 ] = "zoomIn";  // +
-	keys[ browser === "mozilla" ? 109 : 189 ] = "zoomOut"; // -
+	// Depends on transform.js
 	defaults.reasonableAnimation.resize = {
-		transitionDuration: "0s",
-		transitionDelay: "0ms"
-	};
-	defaults.reasonableAnimation.zoom = {
 		transitionDuration: "0s",
 		transitionDelay: "0ms"
 	};

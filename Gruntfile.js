@@ -113,7 +113,8 @@ module.exports = function( grunt ) {
 				},
 				files: [
 					{
-						"dist/basic-animations.css": [ "src/css/animations/basic/*" ]
+						"dist/basic-animations.css": [ "src/css/animations/basic/*" ],
+						"dist/demo.css": [ "dist/basic-animations.css", "src/css/demo/*.css" ]
 					}
 				]
 			}
