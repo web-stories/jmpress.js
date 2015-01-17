@@ -8,7 +8,7 @@ module.exports = function( grunt ) {
 		pkg: grunt.file.readJSON( "package.json" ),
 		watch: {
 			all: {
-				files: [ "src/**", "test/components/*.js" ],
+				files: [ "Gruntfile.js", "src/**", "test/components/*.js" ],
 				tasks: [ "default" ]
 			}
 		},
@@ -79,6 +79,7 @@ module.exports = function( grunt ) {
 							"src/components/circular.js",
 							"src/components/hash.js",
 							"src/components/keyboard.js",
+							"src/components/viewport.js",
 							"src/components/mouse.js"
 						]
 					}
