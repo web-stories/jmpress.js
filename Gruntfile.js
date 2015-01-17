@@ -29,14 +29,22 @@ module.exports = function( grunt ) {
 			}
 		},
 		qunit: {
-			all: [ "test/*.html" ]
+			all: {
+				options: {
+					urls: [
+						"http://localhost:8000/test/index.html",
+						"http://localhost:8000/test/amd.html"
+					]
+				}
+			}
 		},
 		connect: {
-			test: {
+			dev: {
 				options: {
 					open: "http://localhost:8000/test"
 				}
-			}
+			},
+			test: {}
 		},
 		concat: {
 			dist: {
@@ -129,7 +137,7 @@ module.exports = function( grunt ) {
 	grunt.registerTask( "files", [ "concat" ]);
 	grunt.registerTask( "validate", [ "jshint", "jscs" ]);
 
-	grunt.registerTask( "dev", [ "connect:test", "watch" ] );
-	grunt.registerTask( "ci", [ "validate", "files", "qunit" ] );
+	grunt.registerTask( "dev", [ "connect:dev", "watch" ] );
+	grunt.registerTask( "ci", [ "validate", "files", "connect:test", "qunit" ] );
 	grunt.registerTask( "default", [ "clean", "validate", "files" ]);
 };

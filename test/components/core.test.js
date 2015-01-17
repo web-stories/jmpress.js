@@ -255,7 +255,7 @@
 			.find( ".step" )
 			.parent()
 			.css( "transition-duration" );
-		console.log( "transition-duration: " + transitionDuration );
+		// The whole value of "transition-duration" is inconsistent between Unix and Windows
 		ok(
 			transitionDuration.indexOf( "0.1" ) !== -1,
 			"should set correct transition for the first step"
@@ -272,7 +272,7 @@
 			.find( ".step" )
 				.parent()
 				.css( "transition-duration" );
-		console.log( "transition-duration: " + transitionDuration );
+		// The whole value of "transition-duration" is inconsistent between Unix and Windows
 		ok(
 			transitionDuration.indexOf( "0.1" ) !== -1,
 			"should set transition for the second step"
