@@ -12,47 +12,42 @@
 
 	"use strict";
 
-	var $jmpress = $.jmpress;
-
-	/* FUNCTIONS */
 	function randomString() {
 		return "" + Math.round( Math.random() * 100000, 0 );
 	}
 
-	/* HOOKS */
-	$jmpress( "afterInit", function( step, eventData ) {
-		var data, start,
-			settings = eventData.settings,
-			current = eventData.current,
-			jmpress = eventData.jmpress;
-		current.mobileNamespace = ".jmpress-" + randomString();
-		start = [ 0, 0 ];
-		$( settings.fullscreen ? document : jmpress )
-		.bind( "touchstart" + current.mobileNamespace, function( event ) {
-
-			data = event.originalEvent.touches[ 0 ];
-			start = [ data.pageX, data.pageY ];
-
-		}).bind( "touchmove" + current.mobileNamespace, function( event ) {
-			data = event.originalEvent.touches[ 0 ];
-			event.preventDefault();
-			return false;
-		}).bind( "touchend" + current.mobileNamespace, function( event ) {
-			var end = [ data.pageX, data.pageY ],
-				diff = [ end[ 0 ] - start[ 0 ], end[ 1 ] - start[ 1 ] ];
-
-			if ( Math.max( Math.abs( diff[ 0 ] ), Math.abs( diff[ 1 ] ) ) > 50 ) {
-				diff = Math.abs( diff[ 0 ] ) > Math.abs( diff[ 1 ] ) ? diff[ 0 ] : diff[ 1 ];
-				$( jmpress ).jmpress( diff > 0 ? "prev" : "next" );
+	$.jmpress( "afterInit", function( step, eventData ) {
+		var touchData,
+			startSwipe = 0;
+		eventData.current.mobileNamespace = ".jmpress-" + randomString();
+		$( eventData.settings.fullscreen ? document : eventData.jmpress )
+		.bind( "touchstart" + eventData.current.mobileNamespace, function( event ) {
+			touchData = event.originalEvent.touches[ 0 ];
+			startSwipe = touchData.pageX;
+		}).bind( "touchmove" + eventData.current.mobileNamespace, function( event ) {
+			var horizontalDiff, verticalDiff,
+				previousX = touchData.pageX;
+			touchData = event.originalEvent.touches[ 0 ];
+			horizontalDiff = Math.abs( Math.abs( previousX ) - Math.abs( touchData.pageX ) );
+			// Do not prevent the behavior for vertical scroll, but prevent the horizontal to avoid
+			// scrolling pass the overflow.
+			if ( horizontalDiff > 0 ) {
+				return false;
+			}
+		}).bind( "touchend" + eventData.current.mobileNamespace, function( event ) {
+			var referenceDiff,
+				endSwipe = touchData.pageX,
+				hDiff = endSwipe - startSwipe;
+			if ( Math.abs( hDiff ) > 50 ) {
+				$( eventData.jmpress ).jmpress( hDiff > 0 ? "prev" : "next" );
 				event.preventDefault();
 				return false;
 			}
 		});
 	});
-	$jmpress( "afterDeinit", function( nil, eventData ) {
-		var settings = eventData.settings,
-			current = eventData.current,
-			jmpress = eventData.jmpress;
-		$( settings.fullscreen ? document : jmpress ).unbind( current.mobileNamespace );
+
+	$.jmpress( "afterDeinit", function( nil, eventData ) {
+		$( eventData.settings.fullscreen ? document : eventData.jmpress )
+			.unbind( eventData.current.mobileNamespace );
 	});
 }));
